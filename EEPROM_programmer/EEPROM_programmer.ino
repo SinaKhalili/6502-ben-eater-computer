@@ -5,9 +5,9 @@
 #define EEPROM_D7 12
 #define WRITE_EN 13
 
-#include "simple.h"
-unsigned char* data = __bin_simple_bin;
-unsigned int datasize = __bin_simple_bin_len;
+#include "out.h"
+unsigned char* data = __bin_out_bin;
+unsigned int datasize = __bin_out_bin_len;
 
 /*
  * Output the address bits and outputEnable signal using shift registers.

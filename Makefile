@@ -1,10 +1,10 @@
 FQBN := $(shell arduino-cli board list --format json | jq -r '.[] | select(.matching_boards[0].fqbn != null) | .matching_boards[0].fqbn')
 PORT := $(shell arduino-cli board list --format json | jq -r '.[] | select(.matching_boards[0].fqbn != null) | .port.address')
 PROJECT=EEPROM_programmer
-ASM=simple
+ASM=helloworld
 BAUD=57600
 
-all: compile upload monitor
+all: asm compile upload monitor
 	@echo "Done."
 
 upload:
@@ -23,8 +23,8 @@ close:
 	arudino-cli monitor -b $(FQBN) --port $(PORT) --quit
 
 asm: 
-	./vasm6502_oldstyle -Fbin -dotdir -o ./bin/$(ASM).bin ./asm_src/$(ASM).asm
-	xxd -i -l 420 ./bin/$(ASM).bin > ./EEPROM_programmer/$(ASM).h
+	./vasm6502_oldstyle -Fbin -dotdir -o ./bin/out.bin ./asm_src/$(ASM).asm
+	xxd -i -l 420 ./bin/out.bin > ./EEPROM_programmer/out.h
 
 clean:
 	rm -rf out
